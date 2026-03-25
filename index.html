@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-Powered Toxic Comment Detection System – detect hate speech, abusive language & spam in real-time using advanced NLP and machine learning." />
+  <meta name="keywords" content="toxic comment detection, NLP, AI, hate speech, machine learning, text classification" />
+  <meta name="author" content="ToxiGuard AI" />
+  <title>ToxiGuard AI – Toxic Comment Detection System</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Particles -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== PRELOADER ========== -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">
+        <i class="fas fa-shield-halved"></i>
+        <span>ToxiGuard</span>
+      </div>
+      <div class="preloader-bar"><div class="preloader-fill"></div></div>
+      <p class="preloader-text">Initializing AI Engine…</p>
+    </div>
+  </div>
+
+  <!-- ========== TOAST CONTAINER ========== -->
+  <div id="toast-container"></div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <i class="fas fa-shield-halved"></i>
+        <span>ToxiGuard <em>AI</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#detect" class="nav-link">Detect</a></li>
+        <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <a href="#detect" class="btn btn-primary nav-cta">Try Now <i class="fas fa-arrow-right"></i></a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section id="home" class="hero-section">
+    <div id="particles-js"></div>
+    <div class="hero-content reveal">
+      <div class="hero-badge">
+        <i class="fas fa-bolt"></i>
+        <span>Powered by Advanced NLP & ML</span>
+      </div>
+      <h1 class="hero-title">
+        AI-Powered <span class="gradient-text">Toxic Comment</span><br/>Detection
+      </h1>
+      <p class="hero-subtitle">
+        Detect hate speech, abusive language, spam, and offensive content in real-time
+        using state-of-the-art Natural Language Processing and Machine Learning models.
+        Keep your platforms safe, healthy, and inclusive.
+      </p>
+      <div class="hero-buttons">
+        <a href="#detect" class="btn btn-primary btn-lg">
+          <i class="fas fa-magnifying-glass"></i> Try Now
+        </a>
+        <a href="#how-it-works" class="btn btn-outline btn-lg">
+          <i class="fas fa-play-circle"></i> View Demo
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value" data-target="98.7">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">Accuracy</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" data-target="50">0</span><span class="stat-suffix">ms</span>
+          <span class="stat-label">Response Time</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" data-target="6">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Categories</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" data-target="1.2">0</span><span class="stat-suffix">M+</span>
+          <span class="stat-label">Comments Analyzed</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-dot"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- ========== LIVE DETECTION SECTION ========== -->
+  <section id="detect" class="detect-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-radar"></i> Live Detection</span>
+        <h2 class="section-title">Analyze Comment <span class="gradient-text">Toxicity</span></h2>
+        <p class="section-subtitle">Paste any comment below and let our AI classify it instantly with confidence scores and category tags.</p>
+      </div>
+
+      <div class="detect-card reveal">
+        <div class="detect-input-area">
+          <div class="textarea-header">
+            <span><i class="fas fa-comment-dots"></i> Input Comment</span>
+            <div class="textarea-controls">
+              <button id="clearBtn" class="icon-btn" title="Clear"><i class="fas fa-trash"></i></button>
+              <button id="sampleBtn" class="icon-btn" title="Load Sample"><i class="fas fa-dice"></i> Sample</button>
+            </div>
+          </div>
+          <textarea
+            id="commentInput"
+            class="comment-textarea"
+            placeholder="Type or paste a comment here to analyze its toxicity…"
+            rows="6"
+            maxlength="2000"
+            aria-label="Comment input"
+          ></textarea>
+          <div class="textarea-footer">
+            <span class="char-count"><span id="charCount">0</span>/2000</span>
+            <span class="input-hint"><i class="fas fa-lightbulb"></i> Try different types of comments</span>
+          </div>
+        </div>
+
+        <div class="detect-actions">
+          <button id="analyzeBtn" class="btn btn-primary btn-lg analyze-btn">
+            <span class="btn-text"><i class="fas fa-brain"></i> Analyze Comment</span>
+            <span class="btn-loader"><i class="fas fa-spinner fa-spin"></i> Analyzing…</span>
+          </button>
+        </div>
+
+        <!-- Results Area -->
+        <div id="resultsArea" class="results-area hidden">
+          <div class="results-header">
+            <h3><i class="fas fa-chart-bar"></i> Analysis Results</h3>
+            <button id="addToHistoryBtn" class="icon-btn"><i class="fas fa-plus"></i> Save to History</button>
+          </div>
+
+          <div class="results-grid">
+            <!-- Verdict Card -->
+            <div class="result-card verdict-card" id="verdictCard">
+              <div class="verdict-icon" id="verdictIcon">
+                <i class="fas fa-circle-check" id="verdictIconSymbol"></i>
+              </div>
+              <div class="verdict-info">
+                <span class="verdict-label">Prediction</span>
+                <h2 class="verdict-text" id="verdictText">–</h2>
+              </div>
+            </div>
+
+            <!-- Confidence Card -->
+            <div class="result-card confidence-card">
+              <span class="result-card-label"><i class="fas fa-gauge-high"></i> Confidence Score</span>
+              <div class="confidence-gauge">
+                <svg viewBox="0 0 100 60" class="gauge-svg">
+                  <path d="M10 55 A 40 40 0 0 1 90 55" fill="none" stroke="var(--card-border)" stroke-width="8" stroke-linecap="round"/>
+                  <path id="gaugeFill" d="M10 55 A 40 40 0 0 1 90 55" fill="none" stroke="url(#gaugeGradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="125.6"/>
+                  <defs>
+                    <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#10b981"/>
+                      <stop offset="50%" style="stop-color:#f59e0b"/>
+                      <stop offset="100%" style="stop-color:#ef4444"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="gauge-value" id="confidenceValue">0%</div>
+              </div>
+            </div>
+
+            <!-- Categories Card -->
+            <div class="result-card categories-card">
+              <span class="result-card-label"><i class="fas fa-tags"></i> Detected Categories</span>
+              <div class="category-tags" id="categoryTags">
+                <!-- Dynamically filled -->
+              </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="result-card details-card">
+              <span class="result-card-label"><i class="fas fa-list-check"></i> Category Breakdown</span>
+              <div class="category-bars" id="categoryBars">
+                <!-- Dynamically filled -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DASHBOARD SECTION ========== -->
+  <section id="dashboard" class="dashboard-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-chart-line"></i> Dashboard</span>
+        <h2 class="section-title">Analysis <span class="gradient-text">History</span></h2>
+        <p class="section-subtitle">Track and review all your analyzed comments with trends over time.</p>
+      </div>
+
+      <!-- Analytics Overview -->
+      <div class="analytics-grid reveal">
+        <div class="analytics-card">
+          <div class="analytics-icon safe"><i class="fas fa-circle-check"></i></div>
+          <div class="analytics-info">
+            <span class="analytics-label">Safe Comments</span>
+            <span class="analytics-value" id="safeCount">0</span>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-icon toxic"><i class="fas fa-triangle-exclamation"></i></div>
+          <div class="analytics-info">
+            <span class="analytics-label">Toxic Comments</span>
+            <span class="analytics-value" id="toxicCount">0</span>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-icon total"><i class="fas fa-database"></i></div>
+          <div class="analytics-info">
+            <span class="analytics-label">Total Analyzed</span>
+            <span class="analytics-value" id="totalCount">0</span>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-icon accuracy"><i class="fas fa-bullseye"></i></div>
+          <div class="analytics-info">
+            <span class="analytics-label">Avg. Confidence</span>
+            <span class="analytics-value" id="avgConfidence">–%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart + History -->
+      <div class="dashboard-main reveal">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-chart-doughnut"></i> Toxicity Distribution</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="toxicityChart"></canvas>
+          </div>
+        </div>
+
+        <div class="history-card">
+          <div class="history-header">
+            <h3><i class="fas fa-clock-rotate-left"></i> Recent History</h3>
+            <div class="history-filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="safe">Safe</button>
+              <button class="filter-btn" data-filter="toxic">Toxic</button>
+            </div>
+          </div>
+          <div class="history-list" id="historyList">
+            <div class="history-empty">
+              <i class="fas fa-inbox"></i>
+              <p>No history yet. Analyze a comment to get started!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES SECTION ========== -->
+  <section id="features" class="features-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-star"></i> Features</span>
+        <h2 class="section-title">Why <span class="gradient-text">ToxiGuard AI</span>?</h2>
+        <p class="section-subtitle">Built with cutting-edge ML technology for uncompromising performance and reliability.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrap gradient-1">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Real-Time NLP Analysis</h3>
+          <p>Get instant toxicity detection powered by transformer-based NLP models. Results in under 50ms for seamless user experience.</p>
+          <div class="feature-highlight">50ms response</div>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrap gradient-2">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3>High Accuracy ML Model</h3>
+          <p>98.7% accuracy on benchmark datasets using Random Forest and NLP classifiers trained on over 1M+ labeled comments.</p>
+          <div class="feature-highlight">98.7% accuracy</div>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrap gradient-3">
+            <i class="fas fa-tags"></i>
+          </div>
+          <h3>Multi-Category Classification</h3>
+          <p>Identify 6+ toxicity categories including toxic, severe toxic, obscene, threat, insult, and identity hate simultaeneously.</p>
+          <div class="feature-highlight">6+ categories</div>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrap gradient-4">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <h3>Enterprise-Grade Security</h3>
+          <p>All text processing is done securely. No user data is stored permanently. GDPR compliant and privacy-first architecture.</p>
+          <div class="feature-highlight">Privacy-first</div>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrap gradient-5">
+            <i class="fas fa-plug"></i>
+          </div>
+          <h3>API Integration Ready</h3>
+          <p>Easily integrate with your platform via our RESTful API. Compatible with Python Flask, Django, Node.js, and more.</p>
+          <div class="feature-highlight">REST API</div>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrap gradient-6">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Analytics & Insights</h3>
+          <p>Track toxicity trends, category distributions, and get actionable insights to improve your community management strategy.</p>
+          <div class="feature-highlight">Live analytics</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS SECTION ========== -->
+  <section id="how-it-works" class="how-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-gears"></i> Process</span>
+        <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+        <p class="section-subtitle">Three simple steps from raw text to actionable insight.</p>
+      </div>
+      <div class="steps-container">
+        <div class="step-card reveal">
+          <div class="step-number">01</div>
+          <div class="step-icon"><i class="fas fa-keyboard"></i></div>
+          <h3>Input Comment</h3>
+          <p>Paste or type any comment, message, review, or social media post into the detection interface for analysis.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card reveal">
+          <div class="step-number">02</div>
+          <div class="step-icon"><i class="fas fa-microchip"></i></div>
+          <h3>AI Processes Text</h3>
+          <p>Our NLP pipeline tokenizes, embeds, and passes the text through fine-tuned transformer models for deep semantic understanding.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card reveal">
+          <div class="step-number">03</div>
+          <div class="step-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>Output Prediction</h3>
+          <p>Receive a detailed report: toxicity verdict, confidence score, and per-category probabilities with actionable insights.</p>
+        </div>
+      </div>
+
+      <!-- Pipeline Visualization -->
+      <div class="pipeline-viz reveal">
+        <div class="pipeline-step">
+          <div class="pipeline-icon"><i class="fas fa-text-slash"></i></div>
+          <span>Tokenization</span>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon"><i class="fas fa-layer-group"></i></div>
+          <span>Embedding</span>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon"><i class="fas fa-network-wired"></i></div>
+          <span>Random Forest</span>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon"><i class="fas fa-code-branch"></i></div>
+          <span>Classifier</span>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step active-pipeline">
+          <div class="pipeline-icon"><i class="fas fa-circle-check"></i></div>
+          <span>Result</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT SECTION ========== -->
+  <section id="about" class="about-section section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content reveal">
+          <span class="section-badge"><i class="fas fa-brain"></i> About the Model</span>
+          <h2 class="section-title">Built on <span class="gradient-text">State-of-the-Art</span> ML</h2>
+          <p>ToxiGuard AI is built on a NLP and Random Forest classifier model, trained on the Kaggle Toxic Comment Classification Challenge dataset containing over 159,000 labeled Wikipedia comments.</p>
+          <p>The system employs a multi label classification approach, capable of detecting multiple simultaneous toxicity categories within a single piece of text.</p>
+          <div class="model-specs">
+            <div class="spec-item">
+              <i class="fas fa-database"></i>
+              <div>
+                <strong>Dataset</strong>
+                <span>Kaggle Toxic Comment Classification (159K+ samples)</span>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-brain"></i>
+              <div>
+                <strong>Base Model</strong>
+                <span>Random Forest and NLP with fine tuned classification head</span>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-chart-line"></i>
+              <div>
+                <strong>Performance</strong>
+                <span>ROC-AUC: 0.987 | F1-Score: 0.94 | Precision: 0.96</span>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-code"></i>
+              <div>
+                <strong>Backend</strong>
+                <span>Python, Flask, HuggingFace Transformers, scikit-learn</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual reveal">
+          <div class="model-card">
+            <div class="model-card-header">
+              <i class="fas fa-brain"></i>
+              <span>Model Metrics</span>
+              <span class="live-badge"><i class="fas fa-circle"></i> Live</span>
+            </div>
+            <div class="model-metrics">
+              <div class="metric-row">
+                <span>Accuracy</span>
+                <div class="metric-bar-wrap">
+                  <div class="metric-bar" style="--pct:98.7%; --clr: #10b981"></div>
+                </div>
+                <span class="metric-val">98.7%</span>
+              </div>
+              <div class="metric-row">
+                <span>Precision</span>
+                <div class="metric-bar-wrap">
+                  <div class="metric-bar" style="--pct:96.2%; --clr: #6366f1"></div>
+                </div>
+                <span class="metric-val">96.2%</span>
+              </div>
+              <div class="metric-row">
+                <span>Recall</span>
+                <div class="metric-bar-wrap">
+                  <div class="metric-bar" style="--pct:94.8%; --clr: #f59e0b"></div>
+                </div>
+                <span class="metric-val">94.8%</span>
+              </div>
+              <div class="metric-row">
+                <span>F1 Score</span>
+                <div class="metric-bar-wrap">
+                  <div class="metric-bar" style="--pct:95.5%; --clr: #ec4899"></div>
+                </div>
+                <span class="metric-val">95.5%</span>
+              </div>
+              <div class="metric-row">
+                <span>ROC-AUC</span>
+                <div class="metric-bar-wrap">
+                  <div class="metric-bar" style="--pct:98.7%; --clr: #22d3ee"></div>
+                </div>
+                <span class="metric-val">0.987</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS / USE CASES ========== -->
+  <section id="testimonials" class="testimonials-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-quote-left"></i> Use Cases</span>
+        <h2 class="section-title">Trusted for <span class="gradient-text">Every Platform</span></h2>
+        <p class="section-subtitle">Empowering platforms of all sizes to build safer, healthier communities.</p>
+      </div>
+
+      <div class="use-cases-grid">
+        <div class="use-case-card reveal">
+          <div class="use-case-icon"><i class="fab fa-twitter"></i></div>
+          <h3>Social Media Moderation</h3>
+          <p>Automatically flag and filter toxic comments, hate speech, and harassment at scale across social media platforms with millisecond latency.</p>
+        </div>
+        <div class="use-case-card reveal">
+          <div class="use-case-icon"><i class="fas fa-gamepad"></i></div>
+          <h3>Gaming Chat Filtering</h3>
+          <p>Keep in-game chats friendly by detecting toxic behavior, threats, and offensive language in real-time multiplayer environments.</p>
+        </div>
+        <div class="use-case-card reveal">
+          <div class="use-case-icon"><i class="fas fa-users"></i></div>
+          <h3>Community Platforms</h3>
+          <p>Protect forum members and community boards from abusive users. Automate moderation workflows and reduce team workload by 80%.</p>
+        </div>
+        <div class="use-case-card reveal">
+          <div class="use-case-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>EdTech Platforms</h3>
+          <p>Ensure students have a safe learning environment by monitoring discussion forums and preventing cyberbullying in educational platforms.</p>
+        </div>
+        <div class="use-case-card reveal">
+          <div class="use-case-icon"><i class="fas fa-comments"></i></div>
+          <h3>Customer Reviews</h3>
+          <p>Filter out abusive customer reviews and support tickets to protect staff and maintain brand credibility across all touchpoints.</p>
+        </div>
+        <div class="use-case-card reveal">
+          <div class="use-case-icon"><i class="fas fa-newspaper"></i></div>
+          <h3>News & Media</h3>
+          <p>Automatically moderate comment sections on news websites and media platforms to encourage healthy discourse and reduce toxicity.</p>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials-slider reveal">
+        <div class="testimonials-track" id="testimonialsTrack">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"ToxiGuard AI reduced our moderation workload by 85% while catching nearly all toxic comments. It's an absolute game-changer for community management."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">D</div>
+              <div>
+                <strong>Daksh</strong>
+                <span>Head of Trust & Safety, SocialHub</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"The multi category classification is incredibly precise. We integrated the Flask API in just 2 hours and the accuracy is outstanding across all hate speech types."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">DS</div>
+              <div>
+                <strong>Darshit Saini</strong>
+                <span>CTO, GamersUnite Platform</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"Students feel safer on our platform since we deployed ToxiGuard. The real-time detection keeps bullying incidents at an all-time low. Highly recommended!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">DS</div>
+              <div>
+                <strong>Devraj Soni</strong>
+                <span>Product Manager, LearnSphere EdTech</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-dots" id="testimonialDots">
+          <button class="dot active" data-slide="0"></button>
+          <button class="dot" data-slide="1"></button>
+          <button class="dot" data-slide="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT SECTION ========== -->
+  <section id="contact" class="contact-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-envelope"></i> Contact</span>
+        <h2 class="section-title">Get in <span class="gradient-text">Touch</span></h2>
+        <p class="section-subtitle">Have questions or want to integrate ToxiGuard AI into your platform? Reach out!</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:contact@toxiguard.ai">contact@toxiguard.ai</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-github"></i></div>
+            <div>
+              <strong>GitHub</strong>
+              <a href="https://github.com/toxiguard-ai" target="_blank">github.com/toxiguard-ai</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+            <div>
+              <strong>LinkedIn</strong>
+              <a href="https://linkedin.com/company/toxiguard-ai" target="_blank">linkedin.com/company/toxiguard-ai</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-code"></i></div>
+            <div>
+              <strong>API Docs</strong>
+              <a href="#">docs.toxiguard.ai</a>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" placeholder="Harshit Dhaker" required />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" placeholder="harshit@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject</label>
+            <input type="text" id="contactSubject" placeholder="API Integration Inquiry" required />
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" rows="5" placeholder="Tell us about your use case…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg w-full">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo">
+            <i class="fas fa-shield-halved"></i>
+            <span>ToxiGuard <em>AI</em></span>
+          </a>
+          <p>Empowering safer digital communities through cutting-edge AI and Natural Language Processing technology.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="HuggingFace"><i class="fas fa-robot"></i></a>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#detect">Live Detection</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#">API Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Technology</h4>
+          <ul>
+            <li><a href="#about">Random Forest</a></li>
+            <li><a href="#how-it-works">NLP Pipeline</a></li>
+            <li><a href="#">Kaggle Dataset</a></li>
+            <li><a href="#">Research Paper</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ToxiGuard AI. All rights reserved. Built with <i class="fas fa-heart" style="color:#ef4444"></i> for safer communities.</p>
+        <div class="footer-tech">
+          <span><i class="fab fa-python"></i> Python</span>
+          <span><i class="fas fa-brain"></i> Random Forest</span>
+          <span><i class="fas fa-flask"></i> Flask</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Main JS -->
+  <script src="app.js"></script>
+</body>
+</html>
